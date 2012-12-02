@@ -1,5 +1,10 @@
 from django.db import models
 
+from tagging.fields import TagField
+from tagging.models import Tag  
+
+#import tagging
+
 # Create your models here.
 
 class Subject(models.Model):
@@ -22,12 +27,20 @@ class Subject(models.Model):
 	# cv allegato
 	cv = models.FilePathField(path = "/")
 
-	# territori
+        #tags = TagField()
+
+
+        def __unicode__(self):
+                    return u'%s %s ' %(self.name, self.surname)
+              
+        def get_tags(self):
+                    return Tag.objects.get_for_object(self) 
+        # territori
 	# competenze
 	# target
 	# note
-	def __unicode__(self):
-	        return self.question
+       #def __unicode__(self):
+       #    return self.name
 	
 class Activity(models.Model):
 
@@ -37,8 +50,8 @@ class Activity(models.Model):
 	# descrizione
 	description = models.CharField(max_length = 30)
 	
-	def __unicode__(self):
-	        return self.question
+#	def __unicode__(self):
+#	        return self.question
 
 class ContactResult(models.Model):
 
@@ -54,5 +67,5 @@ class ContactResult(models.Model):
 	# notes
 	notes = models.CharField(max_length = 256)
 
-	def __unicode__(self):
-	        return self.question	
+#	def __unicode__(self):
+#	        return self.question	
