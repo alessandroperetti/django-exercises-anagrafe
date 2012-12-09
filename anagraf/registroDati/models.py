@@ -37,20 +37,16 @@ class Subject(models.Model):
 
         @property
         def age(self):
-            return 3
+            date = datetime.datetime.now().date().year - self.birthdate.year
+            return date
 
         def __unicode__(self):
+             #return "%s, %s" %(self.name,self.email)
              return self.name
               
         def get_tags(self):
             return Tag.objects.get_for_object(self) 
 
-        # territori
-	# competenze
-	# target
-	# note
-       #def __unicode__(self):
-       #    return self.name
 	
 class Activity(models.Model):
 
@@ -60,8 +56,8 @@ class Activity(models.Model):
 	# descrizione
 	description = models.CharField(max_length = 30)
 	
-#	def __unicode__(self):
-#	        return self.question
+	def __unicode__(self):
+            return self.name
 
 class ContactResult(models.Model):
 
@@ -77,5 +73,6 @@ class ContactResult(models.Model):
 	# notes
 	notes = models.CharField(max_length = 256)
 
-#	def __unicode__(self):
-#	        return self.question	
+	def __unicode__(self):
+            return "%s, %s" %(self.timestamp, self.notes)
+                    
